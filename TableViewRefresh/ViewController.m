@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *refreshButton;
 @property (nonatomic) NSInteger count;
@@ -22,13 +22,14 @@
     [super viewDidLoad];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    
     _refreshButton.layer.cornerRadius = 8.f;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
+#pragma mark -- tableview代理方法
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -48,6 +49,16 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
+
+#pragma mark -- uiscrollview代理方法
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+{
+    
 }
 
 - (IBAction)clickRefresh:(id)sender {
